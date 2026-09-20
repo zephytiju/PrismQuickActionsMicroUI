@@ -1,0 +1,8 @@
+{
+  "quick-actions": {
+    "sectionLabel": "快捷操作",
+    "createDossier": "创建卷宗",
+    "importEvidence": "导入证据",
+    "openShared": "打开共享"
+  }
+}

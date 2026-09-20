@@ -1,0 +1,8 @@
+{
+  "quick-actions": {
+    "sectionLabel": "QUICK ACTIONS",
+    "createDossier": "CREATE DOSSIER",
+    "importEvidence": "IMPORT EVIDENCE",
+    "openShared": "OPEN SHARED"
+  }
+}

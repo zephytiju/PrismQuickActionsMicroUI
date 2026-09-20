@@ -1,0 +1,50 @@
+{
+  "name": "@zephytiju/prism-quick-actions",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Platform Prism quick-actions micro-UI (component id \"quick-actions\"): the VAULT side panel's quick-actions section — the QUICK ACTIONS label plus the three per-prototype action buttons CREATE DOSSIER (accent), IMPORT EVIDENCE (ok), OPEN SHARED (warn) with → affordance arrows. Clicking a button requests its intent as a Prism event (navigation/action requests never grant authorization); no Lattice calls, no audit events. Ships en + zh-CN locale bundles.",
+  "license": "UNLICENSED",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./locales/*": "./locales/*"
+  },
+  "publishConfig": { "access": "public" },
+  "files": ["dist", "locales"],
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-locales.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "shot-demo": "node scripts/shot-demo.mjs"
+  },
+  "peerDependencies": {
+    "@mantine/core": "^8.1.1",
+    "@zephytiju/prism-react": ">=0.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@mantine/core": "8.1.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@zephytiju/prism-react": "0.1.1",
+    "jsdom": "^25.0.1",
+    "puppeteer-core": "^24.10.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "typescript": "^5.7.2",
+    "vite": "6.0.5",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
