@@ -1,5 +1,7 @@
-import { Box, Stack, Text, UnstyledButton } from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
 import { emitPrismEvent } from "@zephytiju/prism-react";
+import { ActionButton } from "./ActionButton.js";
+import { MONO, MUTED } from "./tokens.js";
 import { stringsForLocale } from "./locales/index.js";
 import type { QuickActionsLocale } from "./locales/index.js";
 
@@ -15,11 +17,6 @@ export interface QuickActionsProps {
   /** UI locale for the component-fixed strings (default "en"). */
   readonly locale?: QuickActionsLocale;
 }
-
-const MONO = "var(--mantine-font-family-monospace)";
-const SANS = "var(--mantine-font-family)";
-const MUTED = "var(--mantine-color-muted-filled)";
-const CARD_DARK_BG = "var(--mantine-color-card-dark-filled)";
 
 /** The section's fixed action set — id, semantic color token, intent event id. */
 const ACTIONS = [
@@ -39,8 +36,9 @@ export function intentEventIdForAction(action: ActionId): string {
  * Platform Prism quick-actions micro-UI (component id "quick-actions"), the
  * VAULT side panel's quick-actions section: the QUICK ACTIONS label plus the
  * three per-prototype action buttons — CREATE DOSSIER (accent),
- * IMPORT EVIDENCE (ok), OPEN SHARED (warn) — each a bordered mono button with
- * a → affordance arrow. The divider above the section in the prototype is
+ * IMPORT EVIDENCE (ok), OPEN SHARED (warn) — each rendered by the focused
+ * ActionButton sub-component (a bordered mono button with a → affordance
+ * arrow). The divider above the section in the prototype is
  * composition-level panel chrome and does not belong to this component.
  *
  * Clicking a button REQUESTS its intent — emitted as a Prism event
@@ -83,53 +81,17 @@ export function QuickActions({
       >
         {resolvedLabel}
       </Text>
-      {ACTIONS.map((action) => {
-        const color = `var(--mantine-color-${action.token}-filled)`;
-        return (
-          <UnstyledButton
-            key={action.id}
-            type="button"
-            px={12}
-            style={{
-              height: 38,
-              background: CARD_DARK_BG,
-              border: `1px solid ${color}`,
-              borderRadius: 4,
-              color,
-              fontFamily: MONO,
-              fontSize: 8,
-              fontWeight: 500,
-              letterSpacing: "0.05em",
-              position: "relative",
-              width: "100%",
-              textAlign: "left",
-            }}
-            data-testid={action.testid}
-            onClick={() => {
-              emitPrismEvent(intentEventIdForAction(action.id), null);
-            }}
-          >
-            {labels[action.id]}
-            <Box
-              component="span"
-              style={{
-                position: "absolute",
-                right: 12,
-                top: 0,
-                bottom: 0,
-                display: "flex",
-                alignItems: "center",
-                fontFamily: SANS,
-                fontSize: 12,
-                fontWeight: 500,
-              }}
-              data-testid={`${action.testid}-arrow`}
-            >
-              →
-            </Box>
-          </UnstyledButton>
-        );
-      })}
+      {ACTIONS.map((action) => (
+        <ActionButton
+          key={action.id}
+          label={labels[action.id]}
+          token={action.token}
+          testid={action.testid}
+          onClick={() => {
+            emitPrismEvent(intentEventIdForAction(action.id), null);
+          }}
+        />
+      ))}
     </Stack>
   );
 }
